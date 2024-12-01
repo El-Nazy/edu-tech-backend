@@ -39,8 +39,8 @@ export default buildConfig({
   routes: {
     api: '/api/v1',
   },
-  cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL!],
-  csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL!],
+  cors: [process.env.SERVER_URL!],
+  csrf: [process.env.SERVER_URL!],
   editor: lexicalEditor({}),
   // endpoints: [resetDBEndpoint, seedDBEndpoint, clearDBEndpoint],
   // graphQL: {
@@ -52,7 +52,7 @@ export default buildConfig({
     trustProxy: true,
     window: 2 * 60 * 1000, // 2 minutes
   },
-  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL!,
+  serverURL: process.env.SERVER_URL!,
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
