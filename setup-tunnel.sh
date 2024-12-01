@@ -1,0 +1,1 @@
+ngrok http --domain=rabbit-honest-ibex.ngrok-free.app $1
