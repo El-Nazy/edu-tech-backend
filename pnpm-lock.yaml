@@ -101,6 +101,9 @@ importers:
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
+      date-fns:
+        specifier: ^4.1.0
+        version: 4.1.0
       dotenv:
         specifier: 16.3.1
         version: 16.3.1
@@ -138,6 +141,9 @@ importers:
       '@payloadcms/eslint-config':
         specifier: 1.0.0
         version: 1.0.0(typescript@5.2.2)
+      '@types/date-fns':
+        specifier: ^2.6.3
+        version: 2.6.3
       '@types/express':
         specifier: ^4.17.9
         version: 4.17.21
@@ -1426,6 +1432,10 @@ packages:
   '@types/connect@3.4.38':
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
 
+  '@types/date-fns@2.6.3':
+    resolution: {integrity: sha512-Ke1lw2Ni1t/wMUoLtKFmSNCLozcTBd6vmMqFP4hRzXn6qzkNt97bPAX0x5Y/c15DP43kKvwW1ycStD5+43jVQA==}
+    deprecated: This is a stub types definition. date-fns provides its own type definitions, so you do not need this installed.
+
   '@types/eslint-scope@3.7.7':
     resolution: {integrity: sha512-MzMFlSLBqNF2gcHWO0G1vP/YQyfvrxZ0bF+u7mzUdZ1/xK4A4sru+nraZz5i3iEIk1l1uyicaDVTB4QbbEkAYg==}
 
@@ -2254,6 +2264,9 @@ packages:
   date-fns@2.30.0:
     resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
     engines: {node: '>=0.11'}
+
+  date-fns@4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
   dateformat@4.6.3:
     resolution: {integrity: sha512-2P0p0pFGzHS5EMnhdxQi7aJN+iMheud0UhG4dlE1DLAlvL8JHjJJTX/CSm4JXwV0Ka5nGk3zC5mcb5bUQUxxMA==}
@@ -6857,17 +6870,17 @@ snapshots:
   '@payloadcms/eslint-config@1.0.0(typescript@5.2.2)':
     dependencies:
       '@types/eslint': 8.44.2
-      '@typescript-eslint/eslint-plugin': 6.6.0(@typescript-eslint/parser@8.16.0(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2)
+      '@typescript-eslint/eslint-plugin': 6.6.0(@typescript-eslint/parser@6.6.0(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2)
       '@typescript-eslint/parser': 6.6.0(eslint@8.48.0)(typescript@5.2.2)
       eslint: 8.48.0
       eslint-config-prettier: 9.0.0(eslint@8.48.0)
       eslint-plugin-import: 2.28.1(@typescript-eslint/parser@6.6.0(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)
-      eslint-plugin-jest: 27.2.3(@typescript-eslint/eslint-plugin@6.6.0(@typescript-eslint/parser@6.6.0(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2)
+      eslint-plugin-jest: 27.2.3(@typescript-eslint/eslint-plugin@6.6.0(@typescript-eslint/parser@8.16.0(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2)
       eslint-plugin-jest-dom: 5.1.0(eslint@8.48.0)
       eslint-plugin-jsx-a11y: 6.7.1(eslint@8.48.0)
       eslint-plugin-node: 11.1.0(eslint@8.48.0)
       eslint-plugin-perfectionist: 2.0.0(eslint@8.48.0)(typescript@5.2.2)
-      eslint-plugin-playwright: 0.16.0(eslint-plugin-jest@27.2.3(@typescript-eslint/eslint-plugin@6.6.0(@typescript-eslint/parser@6.6.0(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)
+      eslint-plugin-playwright: 0.16.0(eslint-plugin-jest@27.2.3(@typescript-eslint/eslint-plugin@6.6.0(@typescript-eslint/parser@8.16.0(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)
       eslint-plugin-react: 7.33.2(eslint@8.48.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.48.0)
       eslint-plugin-regexp: 1.15.0(eslint@8.48.0)
@@ -7456,6 +7469,10 @@ snapshots:
     dependencies:
       '@types/node': 20.17.8
 
+  '@types/date-fns@2.6.3':
+    dependencies:
+      date-fns: 4.1.0
+
   '@types/eslint-scope@3.7.7':
     dependencies:
       '@types/eslint': 9.6.1
@@ -7546,10 +7563,10 @@ snapshots:
       '@types/node': 20.17.8
       '@types/webidl-conversions': 7.0.3
 
-  '@typescript-eslint/eslint-plugin@6.6.0(@typescript-eslint/parser@8.16.0(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2)':
+  '@typescript-eslint/eslint-plugin@6.6.0(@typescript-eslint/parser@6.6.0(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2)':
     dependencies:
       '@eslint-community/regexpp': 4.12.1
-      '@typescript-eslint/parser': 8.16.0(eslint@8.48.0)(typescript@5.2.2)
+      '@typescript-eslint/parser': 6.6.0(eslint@8.48.0)(typescript@5.2.2)
       '@typescript-eslint/scope-manager': 6.6.0
       '@typescript-eslint/type-utils': 6.6.0(eslint@8.48.0)(typescript@5.2.2)
       '@typescript-eslint/utils': 6.6.0(eslint@8.48.0)(typescript@5.2.2)
@@ -8464,6 +8481,8 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.26.0
 
+  date-fns@4.1.0: {}
+
   dateformat@4.6.3: {}
 
   debounce-fn@4.0.0:
@@ -8916,12 +8935,12 @@ snapshots:
       eslint: 8.48.0
       requireindex: 1.2.0
 
-  eslint-plugin-jest@27.2.3(@typescript-eslint/eslint-plugin@6.6.0(@typescript-eslint/parser@6.6.0(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2):
+  eslint-plugin-jest@27.2.3(@typescript-eslint/eslint-plugin@6.6.0(@typescript-eslint/parser@8.16.0(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2):
     dependencies:
       '@typescript-eslint/utils': 5.62.0(eslint@8.48.0)(typescript@5.2.2)
       eslint: 8.48.0
     optionalDependencies:
-      '@typescript-eslint/eslint-plugin': 6.6.0(@typescript-eslint/parser@8.16.0(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2)
+      '@typescript-eslint/eslint-plugin': 6.6.0(@typescript-eslint/parser@6.6.0(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -8985,11 +9004,11 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-playwright@0.16.0(eslint-plugin-jest@27.2.3(@typescript-eslint/eslint-plugin@6.6.0(@typescript-eslint/parser@6.6.0(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0):
+  eslint-plugin-playwright@0.16.0(eslint-plugin-jest@27.2.3(@typescript-eslint/eslint-plugin@6.6.0(@typescript-eslint/parser@8.16.0(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0):
     dependencies:
       eslint: 8.48.0
     optionalDependencies:
-      eslint-plugin-jest: 27.2.3(@typescript-eslint/eslint-plugin@6.6.0(@typescript-eslint/parser@6.6.0(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2)
+      eslint-plugin-jest: 27.2.3(@typescript-eslint/eslint-plugin@6.6.0(@typescript-eslint/parser@8.16.0(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2))(eslint@8.48.0)(typescript@5.2.2)
 
   eslint-plugin-react-hooks@4.6.0(eslint@8.48.0):
     dependencies:

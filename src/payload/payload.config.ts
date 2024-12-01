@@ -10,25 +10,11 @@ import seo from '@payloadcms/plugin-seo'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload/config'
-import { swagger } from 'payload-swagger'
 import rbac from 'payload-rbac'
 
-import Categories from './collections/Categories'
-import Comments from './collections/Comments'
 import { Media } from './collections/Media'
-import { Pages } from './collections/Pages'
-import { Posts } from './collections/Posts'
-import { Projects } from './collections/Projects'
 import Users from './collections/Users'
-import { clearDBEndpoint, resetDBEndpoint, seedDBEndpoint } from './endpoints/resetDB'
-import { Footer } from './globals/Footer'
-import { Header } from './globals/Header'
-import { Settings } from './globals/Settings'
 import Admins from './collections/Admins'
-
-const generateTitle: GenerateTitle = () => {
-  return 'Payload Public Demo'
-}
 
 const m = path.resolve(__dirname, './emptyModuleMock.js')
 
@@ -36,23 +22,7 @@ export default buildConfig({
   admin: {
     disable: true,
     user: Admins.slug,
-    autoLogin: {
-      email: 'demo@payloadcms.com',
-      password: 'demo',
-      prefillOnly: true,
-    },
     bundler: webpackBundler(),
-    livePreview: {
-      breakpoints: [
-        {
-          name: 'mobile',
-          height: 667,
-          label: 'Mobile',
-          width: 375,
-        },
-      ],
-    },
-    // user: Users.slug,
     webpack: (config) => ({
       ...config,
       resolve: {
@@ -65,16 +35,7 @@ export default buildConfig({
       },
     }),
   },
-  collections: [
-    Admins,
-    // Pages,
-    // Posts,
-    // Projects,
-    Media,
-    // Categories,
-    Users,
-    // Comments,
-  ],
+  collections: [Admins, Media, Users],
   routes: {
     api: '/api/v1',
   },
@@ -82,7 +43,6 @@ export default buildConfig({
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL!],
   editor: lexicalEditor({}),
   // endpoints: [resetDBEndpoint, seedDBEndpoint, clearDBEndpoint],
-  // globals: [Settings, Header, Footer],
   // graphQL: {
   //   disablePlaygroundInProduction: false,
   //   schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),

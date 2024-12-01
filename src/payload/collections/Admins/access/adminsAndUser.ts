@@ -1,10 +1,11 @@
 import type { Access } from 'payload/types'
 
 import { checkRole } from '../checkRole'
+import Admins from '..'
 
 const adminsAndUser: Access = ({ req: { user } }) => {
   if (user) {
-    if (checkRole(['admin'], user)) {
+    if (user.collection === Admins.slug) {
       return true
     }
 

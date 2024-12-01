@@ -11,7 +11,7 @@ import { sanitizeDemoAdmin } from './hooks/sanitizeDemoAdmin'
 
 const Admins: CollectionConfig = {
   access: {
-    admin: ({ req: { user } }) => checkRole(['admin'], user),
+    admin: ({ req: { user } }) => user.collection === Admins.slug,
     create: () => false,
     delete: () => false,
   },

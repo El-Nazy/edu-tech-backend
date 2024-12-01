@@ -8,6 +8,7 @@ import { checkRole } from './checkRole'
 import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin'
 import { loginAfterCreate } from './hooks/loginAfterCreate'
 import { sanitizeDemoAdmin } from './hooks/sanitizeDemoAdmin'
+import { addMinutes } from 'date-fns'
 
 const Users: CollectionConfig = {
   access: {
@@ -20,10 +21,27 @@ const Users: CollectionConfig = {
   // },
   auth: true,
   fields: [
-    // {
-    //   name: 'name',
-    //   type: 'text',
-    // },
+    {
+      name: 'emailVerified',
+      type: 'checkbox',
+      defaultValue: false,
+    },
+    {
+      name: 'emailVerificationHash',
+      type: 'text',
+      defaultValue: 'test def val',
+      hidden: true,
+    },
+    {
+      name: 'emailVerificationExpiresAt',
+      type: 'date',
+      defaultValue: () => addMinutes(new Date(), 1),
+      hidden: true,
+    },
+    {
+      name: 'name',
+      type: 'text',
+    },
     // {
     //   // override default email field to add a custom validate function to prevent users from changing the login email
     //   name: 'email',
