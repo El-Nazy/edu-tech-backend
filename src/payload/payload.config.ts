@@ -39,7 +39,7 @@ export default buildConfig({
   routes: {
     api: '/api/v1',
   },
-  cors: [process.env.SERVER_URL!, ...process.env.FRONTEND_URLS!.split(',')],
+  cors: '*', // [process.env.SERVER_URL!, ...process.env.FRONTEND_URLS!.split(',')],
   csrf: [process.env.SERVER_URL!, ...process.env.FRONTEND_URLS!.split(',')],
   editor: lexicalEditor({}),
   // endpoints: [resetDBEndpoint, seedDBEndpoint, clearDBEndpoint],
