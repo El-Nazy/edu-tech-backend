@@ -2,12 +2,7 @@ import type { CollectionConfig, PayloadRequest } from 'payload/types'
 
 import { email as validateEmail } from 'payload/dist/fields/validations'
 
-import { admins } from '../../access/admins'
-import { adminEmail } from '../../cron/shared'
-import { checkRole } from './checkRole'
-import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin'
 import { loginAfterCreate } from './hooks/loginAfterCreate'
-import { sanitizeDemoAdmin } from './hooks/sanitizeDemoAdmin'
 import { addMinutes } from 'date-fns'
 import { User } from '../../payload-types'
 import payload from 'payload'
@@ -17,10 +12,10 @@ const Users: CollectionConfig = {
     create: () => true,
     delete: () => false,
   },
-  // admin: {
-  //   defaultColumns: ['name', 'email'],
-  //   useAsTitle: 'name',
-  // },
+  admin: {
+    defaultColumns: ['firstName', 'email'],
+    useAsTitle: 'firstName',
+  },
   auth: {
     forgotPassword: {
       generateEmailHTML: ({
@@ -73,6 +68,7 @@ const Users: CollectionConfig = {
       access: {
         read: () => false,
       },
+      hooks: {},
     },
     {
       name: 'picture',
@@ -114,29 +110,6 @@ const Users: CollectionConfig = {
       name: 'bio',
       type: 'text',
     },
-    /**
-picture
-countryOfResidence
-title
-company
-specialisation
-level
-interests
-bio
-
-     */
-    // {
-    //   // override default email field to add a custom validate function to prevent users from changing the login email
-    //   name: 'email',
-    //   type: 'email',
-    //   validate: (value, args) => {
-    //     if (args?.user?.email === adminEmail && value !== adminEmail) {
-    //       return 'You cannot change the admin password on the public demo!'
-    //     }
-    //     // call the payload default email validation
-    //     return validateEmail(value, args)
-    //   },
-    // },
     // {
     //   name: 'roles',
     //   access: {
@@ -164,7 +137,6 @@ bio
   ],
   hooks: {
     afterChange: [loginAfterCreate],
-    // beforeOperation: [sanitizeDemoAdmin],
   },
   slug: 'users',
   timestamps: true,
