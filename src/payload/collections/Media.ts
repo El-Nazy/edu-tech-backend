@@ -1,11 +1,11 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig, PayloadRequest } from 'payload/types'
 
 import { LinkFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 
 export const Media: CollectionConfig = {
   access: {
-    create: () => false,
+    create: ({ req }: { req: PayloadRequest }) => !!req.user,
     delete: () => false,
     read: () => true,
     update: () => false,
@@ -16,19 +16,21 @@ export const Media: CollectionConfig = {
   fields: [
     {
       name: 'alt',
-      required: true,
+      // required: true,
       type: 'text',
     },
     {
-      name: 'caption',
-      editor: lexicalEditor({
-        features: ({ defaultFeatures }) => [LinkFeature({})],
-      }),
-      type: 'richText',
+      name: 'addFileNameDate',
+      type: 'checkbox',
+      defaultValue: false,
     },
   ],
   slug: 'media',
   upload: {
-    staticDir: path.resolve(__dirname, '../../../media'),
+    disableLocalStorage: true,
+    staticURL: '/media',
+    // staticURL: "",
+    // staticOptions:
+    // staticDir: path.resolve(__dirname, '../../../media'),
   },
 }

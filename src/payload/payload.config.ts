@@ -1,16 +1,11 @@
 import { webpackBundler } from '@payloadcms/bundler-webpack'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import type { GenerateTitle } from '@payloadcms/plugin-seo/types'
 
-import { payloadCloud } from '@payloadcms/plugin-cloud'
-// import formBuilder from '@payloadcms/plugin-form-builder'
-import nestedDocs from '@payloadcms/plugin-nested-docs'
-import redirects from '@payloadcms/plugin-redirects'
-import seo from '@payloadcms/plugin-seo'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload/config'
 import rbac from 'payload-rbac'
+import cloudinaryPlugin from 'payload-cloudinary-plugin/dist/plugins'
 
 import { Media } from './collections/Media'
 import Users from './collections/Users'
@@ -102,5 +97,6 @@ export default buildConfig({
       roles: ['user', 'moderator'], // roles
       defaultRoles: ['user'],
     }),
+    cloudinaryPlugin(),
   ],
 })

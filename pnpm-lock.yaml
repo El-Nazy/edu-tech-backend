@@ -35,6 +35,9 @@ importers:
       '@payloadcms/richtext-lexical':
         specifier: ^0.11.1
         version: 0.11.4(@lexical/clipboard@0.13.1(lexical@0.13.1))(payload@2.30.4(@swc/helpers@0.5.5)(typescript@5.2.2)(webpack@5.96.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.2.2)(yjs@13.6.20)
+      '@roivasxxx/payload-cloudinary-plugin':
+        specifier: ^0.0.2
+        version: 0.0.2(@swc/helpers@0.5.5)(typescript@5.2.2)(webpack@5.96.1)
       '@swc/core':
         specifier: ^1.4.8
         version: 1.9.3(@swc/helpers@0.5.5)
@@ -71,6 +74,9 @@ importers:
       payload-admin-bar:
         specifier: ^1.0.6
         version: 1.0.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      payload-cloudinary-plugin:
+        specifier: ^0.1.14
+        version: 0.1.14(@swc/helpers@0.5.5)(typescript@5.2.2)(webpack@5.96.1)
       payload-rbac:
         specifier: ^1.0.3
         version: 1.0.3(payload@2.30.4(@swc/helpers@0.5.5)(typescript@5.2.2)(webpack@5.96.1))
@@ -944,6 +950,10 @@ packages:
 
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
+
+  '@roivasxxx/payload-cloudinary-plugin@0.0.2':
+    resolution: {integrity: sha512-XfOY411QZQDOcZPFyI1Za5vx6Cs7rEsbdufGPXELmAiV1fFue4f2coCtFjtaLZ8GIiF+O9lDs95fwg3+dOBVSw==}
+    engines: {node: '>=8.3.0'}
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
@@ -1988,6 +1998,10 @@ packages:
   clone@2.1.2:
     resolution: {integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==}
     engines: {node: '>=0.8'}
+
+  cloudinary@2.5.1:
+    resolution: {integrity: sha512-CNg6uU53Hl4FEVynkTGpt5bQEAQWDHi3H+Sm62FzKf5uQHipSN2v7qVqS8GRVqeb0T1WNV+22+75DOJeRXYeSQ==}
+    engines: {node: '>=9'}
 
   clsx@2.1.1:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
@@ -3970,6 +3984,10 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
 
+  payload-cloudinary-plugin@0.1.14:
+    resolution: {integrity: sha512-ch4BZDmQsn2JNsXk0FzDCZ3VK75Ugz7bMKvevdBzjevUI7j5TmWeDb8l/PLP1oJMgvtMXhyKFTcEeI6NCHMszw==}
+    engines: {node: '>=8.3.0'}
+
   payload-openapi@1.4.0:
     resolution: {integrity: sha512-cxngkbxiXTn5hW901/OtX7gHr0tRNUB/yTaBmeU0L8JiC/QXljOATSG45W3upoZgZ2r6sUJGKH20c3bwEaMZ3w==}
     peerDependencies:
@@ -4296,6 +4314,14 @@ packages:
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
+
+  q@1.5.1:
+    resolution: {integrity: sha512-kV/CThkXo6xyFEZUugw/+pIOywXcDbFYgSct5cT3gqlbkBE1SJdwy6UQoZvodiWF/ckQLZyDE/Bu1M6gVu5lVw==}
+    engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
+    deprecated: |-
+      You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+
+      (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
 
   qs-middleware@1.0.3:
     resolution: {integrity: sha512-ymlixxD/0Bj3BMY9x1z8ENdQdhkmsIbDNyVvfM8soHn5p/CRFlLPrmtxmE5aG//q1PzHHSGuLi+6QlHezivseg==}
@@ -6812,6 +6838,22 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
+  '@roivasxxx/payload-cloudinary-plugin@0.0.2(@swc/helpers@0.5.5)(typescript@5.2.2)(webpack@5.96.1)':
+    dependencies:
+      cloudinary: 2.5.1
+      dotenv: 16.3.1
+      payload: 2.30.4(@swc/helpers@0.5.5)(typescript@5.2.2)(webpack@5.96.1)
+    transitivePeerDependencies:
+      - '@swc/helpers'
+      - '@types/react'
+      - encoding
+      - esbuild
+      - react-native
+      - supports-color
+      - typescript
+      - uglify-js
+      - webpack
+
   '@rtsao/scc@1.1.0': {}
 
   '@rushstack/eslint-patch@1.10.4': {}
@@ -8100,6 +8142,11 @@ snapshots:
       shallow-clone: 3.0.1
 
   clone@2.1.2: {}
+
+  cloudinary@2.5.1:
+    dependencies:
+      lodash: 4.17.21
+      q: 1.5.1
 
   clsx@2.1.1: {}
 
@@ -10297,6 +10344,22 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
+  payload-cloudinary-plugin@0.1.14(@swc/helpers@0.5.5)(typescript@5.2.2)(webpack@5.96.1):
+    dependencies:
+      cloudinary: 2.5.1
+      dotenv: 16.3.1
+      payload: 2.30.4(@swc/helpers@0.5.5)(typescript@5.2.2)(webpack@5.96.1)
+    transitivePeerDependencies:
+      - '@swc/helpers'
+      - '@types/react'
+      - encoding
+      - esbuild
+      - react-native
+      - supports-color
+      - typescript
+      - uglify-js
+      - webpack
+
   payload-openapi@1.4.0(payload@2.30.4(@swc/helpers@0.5.5)(typescript@5.2.2)(webpack@5.96.1)):
     dependencies:
       '@openapi-contrib/json-schema-to-openapi-schema': 2.2.6
@@ -10800,6 +10863,8 @@ snapshots:
       once: 1.4.0
 
   punycode@2.3.1: {}
+
+  q@1.5.1: {}
 
   qs-middleware@1.0.3:
     dependencies:

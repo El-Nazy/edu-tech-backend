@@ -8,6 +8,7 @@ dotenv.config({
 import express from 'express'
 import payload from 'payload'
 import 'express-async-errors'
+import { mediaManagement } from 'payload-cloudinary-plugin'
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -15,6 +16,14 @@ const PORT = process.env.PORT || 3000
 app.get('/', (_, res) => {
   res.send('Welcome to the Edu Tech App Backend API!')
 })
+
+app.use(
+  mediaManagement({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  }),
+)
 
 payload
   .init({
