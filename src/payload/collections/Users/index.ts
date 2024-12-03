@@ -1,11 +1,9 @@
 import type { CollectionConfig, PayloadRequest } from 'payload/types'
 
-import { email as validateEmail } from 'payload/dist/fields/validations'
-
 import { loginAfterCreate } from './hooks/loginAfterCreate'
-import { addMinutes } from 'date-fns'
 import { User } from '../../payload-types'
-import payload from 'payload'
+
+import emailVerificationEndpoints from './endpoints/email-verification-endpoints'
 
 const Users: CollectionConfig = {
   access: {
@@ -17,6 +15,7 @@ const Users: CollectionConfig = {
     useAsTitle: 'firstName',
   },
   auth: {
+    tokenExpiration: 100000000,
     forgotPassword: {
       generateEmailHTML: ({
         req,
@@ -28,7 +27,6 @@ const Users: CollectionConfig = {
         user: User
       }) => {
         // Use the token provided to allow your user to reset their password
-        payload.logger.info(`req body ${JSON.stringify(req.body)}`, req.body)
         const resetPasswordURL = `${req.body.redirect || 'https://localhost:3000/reset-password'}?token=${token}`
 
         return `
@@ -56,19 +54,11 @@ const Users: CollectionConfig = {
       name: 'emailVerificationHash',
       type: 'text',
       hidden: true,
-      access: {
-        read: () => false,
-      },
     },
     {
       name: 'emailVerificationExpiresAt',
       type: 'date',
-      // defaultValue: () => addMinutes(new Date(), 1),
       hidden: true,
-      access: {
-        read: () => false,
-      },
-      hooks: {},
     },
     {
       name: 'picture',
@@ -137,9 +127,41 @@ const Users: CollectionConfig = {
   ],
   hooks: {
     afterChange: [loginAfterCreate],
+    afterRead: [
+      async ({
+        doc, // full document data
+        req, // full express request
+      }: {
+        doc: User
+        req: PayloadRequest
+      }) => {
+        // console.log('req user', req.user, doc)
+        // if (req.user.collection !== 'admins' || req.user.id !== doc.id) {
+        //   // delete doc.loginAttempts
+        // }
+        delete doc.loginAttempts
+        return doc
+      },
+    ],
   },
   slug: 'users',
   timestamps: true,
+  endpoints: [
+    {
+      path: '/sign-in',
+      method: 'post',
+      handler: async (req, res) =>
+        res.send(
+          await req.payload.login({
+            collection: Users.slug as 'users',
+            req: req as PayloadRequest,
+            data: req.body,
+            res: res,
+          }),
+        ),
+    },
+    ...emailVerificationEndpoints,
+  ],
 }
 
 export default Users

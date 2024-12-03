@@ -69,7 +69,14 @@ export default buildConfig({
   },
   db: mongooseAdapter({
     url: process.env.DATABASE_URI,
+    // schemaOptions: {
+    //   strict: false,
+    //   strictQuery: false,
+    // },
   }),
+  // graphQL: {
+
+  // },
   plugins: [
     // formBuilder({}),
     // redirects({
