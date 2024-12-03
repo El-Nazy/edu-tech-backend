@@ -135,7 +135,6 @@ const Users: CollectionConfig = {
         doc: User
         req: PayloadRequest
       }) => {
-        // console.log('req user', req.user, doc)
         // if (req.user.collection !== 'admins' || req.user.id !== doc.id) {
         //   // delete doc.loginAttempts
         // }

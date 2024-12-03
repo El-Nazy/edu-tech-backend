@@ -15,7 +15,6 @@ export default [
       }
 
       const otp = randomInt(100000, 1000000).toString() // random 6 digits int to str
-      console.log('*****otp', otp)
 
       const unverifedUser = (
         await req.payload.update({
@@ -59,8 +58,6 @@ export default [
       }
 
       const currentUser = await await req.payload.db.collections['users'].findById(req.user.id)
-
-      console.log('curr user', currentUser)
 
       if (compareAsc(new Date(currentUser.emailVerificationExpiresAt), Date.now()) === -1) {
         return res.json({
