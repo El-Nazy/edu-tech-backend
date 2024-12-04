@@ -9,9 +9,19 @@ import express from 'express'
 import payload from 'payload'
 import 'express-async-errors'
 import { mediaManagement } from 'payload-cloudinary-plugin'
+import cors from 'cors'
 
 const app = express()
 const PORT = process.env.PORT || 3000
+
+app.use(
+  cors({
+    // origin: true,
+    // methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    // optionsSuccessStatus: 200,
+    credentials: true,
+  }),
+)
 
 app.get('/', (_, res) => {
   res.send('Welcome to the Edu Tech App Backend API!')
