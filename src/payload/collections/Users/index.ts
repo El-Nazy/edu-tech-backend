@@ -1,7 +1,5 @@
 import type { CollectionConfig, PayloadRequest } from 'payload/types'
 
-import { addDays } from 'date-fns'
-
 import type { User } from '../../payload-types'
 
 import usersEndpoints from './endpoints'

@@ -1,8 +1,5 @@
 import type { CollectionConfig, PayloadRequest } from 'payload/types'
 
-import { LinkFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
-import path from 'path'
-
 export const Media: CollectionConfig = {
   access: {
     create: ({ req }: { req: PayloadRequest }) => !!req.user,
@@ -21,8 +18,8 @@ export const Media: CollectionConfig = {
     },
     {
       name: 'addFileNameDate',
-      type: 'checkbox',
       defaultValue: false,
+      type: 'checkbox',
     },
   ],
   slug: 'media',

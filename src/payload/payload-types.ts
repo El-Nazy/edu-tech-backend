@@ -11,6 +11,10 @@ export interface Config {
     admins: Admin;
     media: Media;
     users: User;
+    subjects: Subject;
+    questions: Question;
+    responses: Response;
+    'responses-replies': ResponsesReply;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -40,22 +44,15 @@ export interface Admin {
  */
 export interface Media {
   id: string;
-  alt: string;
-  caption?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  alt?: string | null;
+  addFileNameDate?: boolean | null;
+  cloudinary?: {
+    public_id?: string | null;
+    original_filename?: string | null;
+    format?: string | null;
+    secure_url?: string | null;
+    resource_type?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -97,6 +94,69 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subjects".
+ */
+export interface Subject {
+  id: string;
+  name: string;
+  description: string;
+  followersCount?: number | null;
+  creator: string | User;
+  image?: string | Media | null;
+  firstFiveFollowers?: (string | User)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "questions".
+ */
+export interface Question {
+  id: string;
+  subject: string | Subject;
+  title: string;
+  body: string;
+  asker: string | User;
+  lastFollowed?: string | null;
+  responsesCount?: number | null;
+  upVotesCount?: number | null;
+  downVotesCount?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "responses".
+ */
+export interface Response {
+  id: string;
+  text: string;
+  media?: string | Media | null;
+  responder: string | User;
+  responsesCount?: number | null;
+  upVotesCount?: number | null;
+  downVotesCount?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "responses-replies".
+ */
+export interface ResponsesReply {
+  id: string;
+  text: string;
+  media?: string | Media | null;
+  responder: string | User;
+  parent: string | Response;
+  responsesCount?: number | null;
+  upVotesCount?: number | null;
+  downVotesCount?: number | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -14,37 +14,15 @@ import { ResponsesReplies } from './collections/ResponsesReplies'
 import { Subjects } from './collections/Subjects'
 import Users from './collections/Users'
 
-const m = path.resolve(__dirname, './emptyModuleMock.js')
-
 export default buildConfig({
   admin: {
     bundler: webpackBundler(),
     disable: true,
     user: Admins.slug,
-    webpack: (config) => ({
-      ...config,
-      resolve: {
-        ...config.resolve,
-        alias: {
-          ...config.resolve?.alias,
-          express: m,
-          [path.resolve(__dirname, './cron/reset')]: m,
-        },
-      },
-    }),
   },
   collections: [Admins, Media, Users, Subjects, Questions, Responses, ResponsesReplies],
   cors: '*', // [process.env.SERVER_URL!, ...process.env.FRONTEND_URLS!.split(',')],
   csrf: [process.env.SERVER_URL!, ...process.env.FRONTEND_URLS!.split(',')],
-  editor: lexicalEditor({}),
-  routes: {
-    api: '/api/v1',
-  },
-  // endpoints: [resetDBEndpoint, seedDBEndpoint, clearDBEndpoint],
-  // graphQL: {
-  //   disablePlaygroundInProduction: false,
-  //   schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
-  // },
   db: mongooseAdapter({
     url: process.env.DATABASE_URI,
     // schemaOptions: {
@@ -52,6 +30,8 @@ export default buildConfig({
     //   strictQuery: false,
     // },
   }),
+  editor: lexicalEditor({}),
+
   email: {
     fromAddress: process.env.GMAIL_USER,
     fromName: 'Edu Tech App',
@@ -63,32 +43,7 @@ export default buildConfig({
       service: 'gmail',
     },
   },
-  rateLimit: {
-    max: 10000, // limit each IP per windowMs
-    trustProxy: true,
-    window: 2 * 60 * 1000, // 2 minutes
-  },
-  serverURL: process.env.SERVER_URL!,
-  typescript: {
-    outputFile: path.resolve(__dirname, 'payload-types.ts'),
-  },
-  // graphQL: {
-
-  // },
   plugins: [
-    // formBuilder({}),
-    // redirects({
-    //   collections: ['pages', 'posts'],
-    // }),
-    // nestedDocs({
-    //   collections: ['categories'],
-    // }),
-    // seo({
-    //   collections: ['pages', 'posts', 'projects'],
-    //   generateTitle,
-    //   uploadsCollection: 'media',
-    // }),
-    // payloadCloud(),
     // swagger({
     //   exclude: {
     //     passwordRecovery: false,
@@ -102,4 +57,16 @@ export default buildConfig({
     }),
     cloudinaryPlugin(),
   ],
+  rateLimit: {
+    max: 10000, // limit each IP per windowMs
+    trustProxy: true,
+    window: 2 * 60 * 1000, // 2 minutes
+  },
+  routes: {
+    api: '/api/v1',
+  },
+  serverURL: process.env.SERVER_URL!,
+  typescript: {
+    outputFile: path.resolve(__dirname, 'payload-types.ts'),
+  },
 })

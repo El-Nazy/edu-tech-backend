@@ -1,6 +1,5 @@
 import type { Access } from 'payload/types'
 
-import { checkRole } from '../checkRole'
 import Admins from '..'
 
 const adminsAndUser: Access = ({ req: { user } }) => {
