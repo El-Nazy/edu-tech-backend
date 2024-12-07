@@ -1,0 +1,44 @@
+Subject
+  name
+  followersCount: number
+  creator: relationTo User
+  image: relationTo Media
+  firstFiveFollowers: [relationTo User]
+
+Question
+  subject: relationTo Subject
+  subject
+  body
+  asker: relationTo user
+  lastFollowed: Date
+  responsesCount: number
+  upVotesCount: number
+  downVotesCount: number
+  
+Response
+  text
+  media: relationTo Media
+  responder: relationTo user
+  responsesCount: number
+  upVotesCount: number
+  downVotesCount: number
+
+ResponseReply
+  text
+  media: relationTo Media
+  responder: relationTo user
+  parent: relationTo Response
+  responsesCount: number
+  upVotesCount: number
+  downVotesCount: number
+
+Message
+  sender: relationTo user
+  receiver: relationTo user
+  text
+  media: relationTo Media
+  read: checkbox
+  delivered: checkbox
+
+
+handle media updating via patch
