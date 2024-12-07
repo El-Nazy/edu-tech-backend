@@ -1,9 +1,11 @@
 import type { CollectionConfig, PayloadRequest } from 'payload/types'
 
-import { loginAfterCreate } from './hooks/loginAfterCreate'
-import { User } from '../../payload-types'
+import { addDays } from 'date-fns'
 
-import emailVerificationEndpoints from './endpoints/email-verification-endpoints'
+import type { User } from '../../payload-types'
+
+import usersEndpoints from './endpoints'
+import { loginAfterCreate } from './hooks/loginAfterCreate'
 
 const Users: CollectionConfig = {
   access: {
@@ -15,7 +17,6 @@ const Users: CollectionConfig = {
     useAsTitle: 'firstName',
   },
   auth: {
-    tokenExpiration: 100000000,
     forgotPassword: {
       generateEmailHTML: ({
         req,
@@ -43,22 +44,24 @@ const Users: CollectionConfig = {
       `
       },
     },
+    tokenExpiration: 60 * 60 * 24 * 30, // 30 days
   },
+  endpoints: usersEndpoints,
   fields: [
     {
       name: 'emailVerified',
-      type: 'checkbox',
       defaultValue: false,
+      type: 'checkbox',
     },
     {
       name: 'emailVerificationHash',
-      type: 'text',
       hidden: true,
+      type: 'text',
     },
     {
       name: 'emailVerificationExpiresAt',
-      type: 'date',
       hidden: true,
+      type: 'date',
     },
     {
       name: 'picture',
@@ -128,9 +131,8 @@ const Users: CollectionConfig = {
   hooks: {
     afterChange: [loginAfterCreate],
     afterRead: [
-      async ({
+      ({
         doc, // full document data
-        req, // full express request
       }: {
         doc: User
         req: PayloadRequest
@@ -145,22 +147,6 @@ const Users: CollectionConfig = {
   },
   slug: 'users',
   timestamps: true,
-  endpoints: [
-    {
-      path: '/sign-in',
-      method: 'post',
-      handler: async (req, res) =>
-        res.send(
-          await req.payload.login({
-            collection: Users.slug as 'users',
-            req: req as PayloadRequest,
-            data: req.body,
-            res: res,
-          }),
-        ),
-    },
-    ...emailVerificationEndpoints,
-  ],
 }
 
 export default Users
