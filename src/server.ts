@@ -5,11 +5,11 @@ dotenv.config({
   path: path.resolve(__dirname, '../.env'),
 })
 
-import express from 'express'
-import payload from 'payload'
-import 'express-async-errors'
-import { mediaManagement } from 'payload-cloudinary-plugin'
 import cors from 'cors'
+import express from 'express'
+import 'express-async-errors'
+import payload from 'payload'
+import { mediaManagement } from 'payload-cloudinary-plugin'
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -29,13 +29,13 @@ app.get('/', (_, res) => {
 
 app.use(
   mediaManagement({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   }),
 )
 
-payload
+void payload
   .init({
     express: app,
     secret: process.env.PAYLOAD_SECRET!,

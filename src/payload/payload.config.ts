@@ -1,23 +1,26 @@
 import { webpackBundler } from '@payloadcms/bundler-webpack'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
-
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload/config'
-import rbac from 'payload-rbac'
 import cloudinaryPlugin from 'payload-cloudinary-plugin/dist/plugins'
+import rbac from 'payload-rbac'
 
-import { Media } from './collections/Media'
-import Users from './collections/Users'
 import Admins from './collections/Admins'
+import { Media } from './collections/Media'
+import { Questions } from './collections/Questions'
+import { Responses } from './collections/Responses'
+import { ResponsesReplies } from './collections/ResponsesReplies'
+import { Subjects } from './collections/Subjects'
+import Users from './collections/Users'
 
 const m = path.resolve(__dirname, './emptyModuleMock.js')
 
 export default buildConfig({
   admin: {
+    bundler: webpackBundler(),
     disable: true,
     user: Admins.slug,
-    bundler: webpackBundler(),
     webpack: (config) => ({
       ...config,
       resolve: {
@@ -30,18 +33,36 @@ export default buildConfig({
       },
     }),
   },
-  collections: [Admins, Media, Users],
-  routes: {
-    api: '/api/v1',
-  },
+  collections: [Admins, Media, Users, Subjects, Questions, Responses, ResponsesReplies],
   cors: '*', // [process.env.SERVER_URL!, ...process.env.FRONTEND_URLS!.split(',')],
   csrf: [process.env.SERVER_URL!, ...process.env.FRONTEND_URLS!.split(',')],
   editor: lexicalEditor({}),
+  routes: {
+    api: '/api/v1',
+  },
   // endpoints: [resetDBEndpoint, seedDBEndpoint, clearDBEndpoint],
   // graphQL: {
   //   disablePlaygroundInProduction: false,
   //   schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
   // },
+  db: mongooseAdapter({
+    url: process.env.DATABASE_URI,
+    // schemaOptions: {
+    //   strict: false,
+    //   strictQuery: false,
+    // },
+  }),
+  email: {
+    fromAddress: process.env.GMAIL_USER,
+    fromName: 'Edu Tech App',
+    transportOptions: {
+      auth: {
+        pass: process.env.GMAIL_PASSWORD,
+        user: process.env.GMAIL_USER,
+      },
+      service: 'gmail',
+    },
+  },
   rateLimit: {
     max: 10000, // limit each IP per windowMs
     trustProxy: true,
@@ -51,24 +72,6 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
-  email: {
-    transportOptions: {
-      service: 'gmail',
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASSWORD,
-      },
-    },
-    fromName: 'Edu Tech App',
-    fromAddress: process.env.GMAIL_USER,
-  },
-  db: mongooseAdapter({
-    url: process.env.DATABASE_URI,
-    // schemaOptions: {
-    //   strict: false,
-    //   strictQuery: false,
-    // },
-  }),
   // graphQL: {
 
   // },
@@ -94,8 +97,8 @@ export default buildConfig({
     // }),
     rbac({
       collections: ['users'], // collections to enable rbac on, default: all auth collections
-      roles: ['user', 'moderator'], // roles
       defaultRoles: ['user'],
+      roles: ['user', 'moderator'], // roles
     }),
     cloudinaryPlugin(),
   ],
