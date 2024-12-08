@@ -63,7 +63,8 @@ const Users: CollectionConfig = {
     },
     {
       name: 'picture',
-      type: 'text',
+      relationTo: 'media',
+      type: 'upload',
     },
     {
       name: 'firstName',
