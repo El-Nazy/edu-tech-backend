@@ -1,4 +1,10 @@
-import type { CollectionConfig } from 'payload/types'
+import type { Payload } from 'payload'
+import type { CollectionConfig, FieldAccess } from 'payload/types'
+
+import { Types } from 'mongoose'
+import { blockAll } from 'payload-rbac'
+
+import { Subjects } from './Subjects'
 
 export const Questions: CollectionConfig = {
   admin: {
@@ -7,14 +13,35 @@ export const Questions: CollectionConfig = {
   },
   fields: [
     {
-      name: 'subject',
-      relationTo: 'subjects',
+      name: 'asker',
+      access: {
+        create: blockAll() as FieldAccess,
+        update: blockAll() as FieldAccess,
+      },
+      relationTo: 'users',
       required: true,
       type: 'relationship',
     },
     {
-      name: 'title',
+      name: 'subject',
+      relationTo: 'subjects',
       required: true,
+      type: 'relationship',
+      validate: async (value, { payload }) => {
+        const validationError = 'subject must be a valid subject id'
+        if (Types.ObjectId.isValid(value)) {
+          return await (payload as Payload)
+            .findByID({
+              id: value,
+              collection: Subjects.slug,
+            })
+            .then((s) => !!s.id || validationError)
+            .catch(() => validationError)
+        } else return validationError
+      },
+    },
+    {
+      name: 'title',
       type: 'text',
     },
     {
@@ -23,22 +50,22 @@ export const Questions: CollectionConfig = {
       type: 'textarea',
     },
     {
-      name: 'asker',
-      relationTo: 'users',
-      required: true,
-      type: 'relationship',
-    },
-    {
       name: 'lastFollowed',
+      access: {
+        create: blockAll() as FieldAccess,
+        update: blockAll() as FieldAccess,
+      },
       admin: {
-        date: {
-          pickerAppearance: 'dayAndTime',
-        },
+        readOnly: true,
       },
       type: 'date',
     },
     {
       name: 'responsesCount',
+      access: {
+        create: blockAll() as FieldAccess,
+        update: blockAll() as FieldAccess,
+      },
       admin: {
         readOnly: true,
       },
@@ -47,6 +74,10 @@ export const Questions: CollectionConfig = {
     },
     {
       name: 'upVotesCount',
+      access: {
+        create: blockAll() as FieldAccess,
+        update: blockAll() as FieldAccess,
+      },
       admin: {
         readOnly: true,
       },
@@ -55,6 +86,10 @@ export const Questions: CollectionConfig = {
     },
     {
       name: 'downVotesCount',
+      access: {
+        create: blockAll() as FieldAccess,
+        update: blockAll() as FieldAccess,
+      },
       admin: {
         readOnly: true,
       },
@@ -62,5 +97,17 @@ export const Questions: CollectionConfig = {
       type: 'number',
     },
   ],
+  hooks: {
+    beforeValidate: [
+      ({
+        data, // incoming data to update or create with
+        operation, // name of the operation ie. 'create', 'update'
+        req, // full express request
+      }) => {
+        if (operation === 'create') data.asker = req.user.id
+        return data // Return data to either create or update a document with
+      },
+    ],
+  },
   slug: 'questions',
 }
