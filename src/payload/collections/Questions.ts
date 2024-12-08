@@ -33,7 +33,7 @@ export const Questions: CollectionConfig = {
           return await (payload as Payload)
             .findByID({
               id: value,
-              collection: Subjects.slug,
+              collection: Subjects.slug as 'subjects',
             })
             .then((s) => !!s.id || validationError)
             .catch(() => validationError)
