@@ -1,5 +1,7 @@
 import type { CollectionConfig, PayloadRequest } from 'payload/types'
 
+import { Types } from 'mongoose'
+
 import type { User } from '../../payload-types'
 
 import usersEndpoints from './endpoints'
@@ -96,7 +98,14 @@ const Users: CollectionConfig = {
     },
     {
       name: 'interests',
-      type: 'text',
+      hasMany: true,
+      hooks: {
+        beforeValidate: [
+          ({ value }) => (value as string[]).filter((v) => Types.ObjectId.isValid(v)),
+        ],
+      },
+      relationTo: 'subjects',
+      type: 'relationship',
     },
     {
       name: 'bio',
