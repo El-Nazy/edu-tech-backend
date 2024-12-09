@@ -1,23 +1,22 @@
 import type { Payload } from 'payload'
-import type { CollectionConfig, FieldAccess } from 'payload/types'
+import type { CollectionConfig } from 'payload/types'
 
 import { Types } from 'mongoose'
-import { blockAll } from 'payload-rbac'
 
-import { Subjects } from './Subjects'
+import usersReadonlyAccess from '../../access/users-readonly-access'
+import { Subjects } from '../Subjects'
+import questionsEndpoints from './endpoints'
 
 export const Questions: CollectionConfig = {
   admin: {
     defaultColumns: ['subject', 'asker', 'title', 'responsesCount'],
     useAsTitle: 'subject',
   },
+  endpoints: questionsEndpoints,
   fields: [
     {
       name: 'asker',
-      access: {
-        create: blockAll() as FieldAccess,
-        update: blockAll() as FieldAccess,
-      },
+      access: usersReadonlyAccess,
       relationTo: 'users',
       required: true,
       type: 'relationship',
@@ -51,10 +50,7 @@ export const Questions: CollectionConfig = {
     },
     {
       name: 'lastFollowed',
-      access: {
-        create: blockAll() as FieldAccess,
-        update: blockAll() as FieldAccess,
-      },
+      access: usersReadonlyAccess,
       admin: {
         readOnly: true,
       },
@@ -62,10 +58,7 @@ export const Questions: CollectionConfig = {
     },
     {
       name: 'responsesCount',
-      access: {
-        create: blockAll() as FieldAccess,
-        update: blockAll() as FieldAccess,
-      },
+      access: usersReadonlyAccess,
       admin: {
         readOnly: true,
       },
@@ -74,10 +67,7 @@ export const Questions: CollectionConfig = {
     },
     {
       name: 'upVotesCount',
-      access: {
-        create: blockAll() as FieldAccess,
-        update: blockAll() as FieldAccess,
-      },
+      access: usersReadonlyAccess,
       admin: {
         readOnly: true,
       },
@@ -86,10 +76,7 @@ export const Questions: CollectionConfig = {
     },
     {
       name: 'downVotesCount',
-      access: {
-        create: blockAll() as FieldAccess,
-        update: blockAll() as FieldAccess,
-      },
+      access: usersReadonlyAccess,
       admin: {
         readOnly: true,
       },

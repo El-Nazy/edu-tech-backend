@@ -73,7 +73,7 @@ export interface User {
   emailVerified?: boolean | null;
   emailVerificationHash?: string | null;
   emailVerificationExpiresAt?: string | null;
-  picture?: string | null;
+  picture?: string | Media | null;
   firstName?: string | null;
   lastName?: string | null;
   countryOfResidence?: string | null;
@@ -81,7 +81,7 @@ export interface User {
   company?: string | null;
   specialisation?: string | null;
   level?: string | null;
-  interests?: string | null;
+  interests?: (string | Subject)[] | null;
   bio?: string | null;
   roles?: ('user' | 'moderator')[] | null;
   updatedAt: string;
@@ -116,10 +116,10 @@ export interface Subject {
  */
 export interface Question {
   id: string;
-  subject: string | Subject;
-  title: string;
-  body: string;
   asker: string | User;
+  subject: string | Subject;
+  title?: string | null;
+  body: string;
   lastFollowed?: string | null;
   responsesCount?: number | null;
   upVotesCount?: number | null;
@@ -133,8 +133,8 @@ export interface Question {
  */
 export interface Response {
   id: string;
+  question: string | Question;
   text: string;
-  media?: string | Media | null;
   responder: string | User;
   responsesCount?: number | null;
   upVotesCount?: number | null;

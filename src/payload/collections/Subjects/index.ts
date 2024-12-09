@@ -1,8 +1,8 @@
-import type { CollectionConfig, FieldAccess } from 'payload/types'
+import type { CollectionConfig } from 'payload/types'
 
 import { Types } from 'mongoose'
-import { blockAll } from 'payload-rbac'
 
+import usersReadonlyAccess from '../../access/users-readonly-access'
 import adminOrCreator from './access/admin-or-creator'
 import subjectsEndpoints from './endpoints'
 
@@ -58,10 +58,7 @@ export const Subjects: CollectionConfig = {
     },
     {
       name: 'firstFiveFollowers',
-      access: {
-        create: blockAll() as FieldAccess,
-        update: blockAll() as FieldAccess,
-      },
+      access: usersReadonlyAccess,
       defaultValue: ({ user }) => {
         return [user.id]
       },
