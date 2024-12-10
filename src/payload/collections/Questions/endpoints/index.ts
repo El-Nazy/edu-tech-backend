@@ -1,3 +1,4 @@
-import forMe from './for-me'
+import getForMe from './get-for-me'
+import vote from './vote'
 
-export default [forMe]
+export default [getForMe, vote]

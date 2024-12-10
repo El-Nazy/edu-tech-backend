@@ -13,6 +13,7 @@ export interface Config {
     users: User;
     subjects: Subject;
     questions: Question;
+    'questions-votes': QuestionsVote;
     responses: Response;
     'responses-replies': ResponsesReply;
     'payload-preferences': PayloadPreference;
@@ -124,6 +125,19 @@ export interface Question {
   responsesCount?: number | null;
   upVotesCount?: number | null;
   downVotesCount?: number | null;
+  userVote?: ('upvote' | 'downvote') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "questions-votes".
+ */
+export interface QuestionsVote {
+  id: string;
+  question: string | Question;
+  user: string | User;
+  type: 'upvote' | 'downvote';
   updatedAt: string;
   createdAt: string;
 }

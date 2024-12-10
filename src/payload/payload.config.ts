@@ -9,6 +9,7 @@ import rbac from 'payload-rbac'
 import Admins from './collections/Admins'
 import { Media } from './collections/Media'
 import { Questions } from './collections/Questions'
+import QuestionsVotes from './collections/QuestionsVotes'
 import { Responses } from './collections/Responses'
 import { ResponsesReplies } from './collections/ResponsesReplies'
 import { Subjects } from './collections/Subjects'
@@ -20,7 +21,16 @@ export default buildConfig({
     disable: true,
     user: Admins.slug,
   },
-  collections: [Admins, Media, Users, Subjects, Questions, Responses, ResponsesReplies],
+  collections: [
+    Admins,
+    Media,
+    Users,
+    Subjects,
+    Questions,
+    QuestionsVotes,
+    Responses,
+    ResponsesReplies,
+  ],
   cors: '*', // [process.env.SERVER_URL!, ...process.env.FRONTEND_URLS!.split(',')],
   csrf: [process.env.SERVER_URL!, ...process.env.FRONTEND_URLS!.split(',')],
   db: mongooseAdapter({

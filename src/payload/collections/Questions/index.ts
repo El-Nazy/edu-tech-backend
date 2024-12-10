@@ -83,6 +83,24 @@ export const Questions: CollectionConfig = {
       defaultValue: 0,
       type: 'number',
     },
+    {
+      name: 'userVote',
+      access: {
+        create: () => false,
+      },
+      hidden: true,
+      options: [
+        {
+          label: 'Upvote',
+          value: 'upvote',
+        },
+        {
+          label: 'Downvote',
+          value: 'downvote',
+        },
+      ],
+      type: 'select',
+    },
   ],
   hooks: {
     beforeValidate: [
